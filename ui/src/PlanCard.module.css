@@ -1,0 +1,20 @@
+.planCard{
+    padding: 40px;
+    list-style: none;
+    font-size: 2.0rem; 
+    text-align: center;
+    background-color: grey;
+}
+
+.planCard_description{
+    list-style: none;
+    font-size: 1.0rem; 
+    text-align: left;
+    padding: 40px;
+    background-color: grey;
+}
+
+.movieImage{
+    border-radius: 10px;
+    /* background-color: azure; */
+}

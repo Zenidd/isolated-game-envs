@@ -1,0 +1,46 @@
+[
+    {
+        "plan_name": "Grass",
+        "plan_image": "https://static.wikia.nocookie.net/minecraft/images/f/fe/GrassNew.png",
+        "cost" : "10,99$",
+        "specs_ram": "2GB RAM",
+        "specs_cpu": "2 vCPU",
+        "mods": "not supported",
+        "access": "root access to server",
+        "backups": "not supported",
+        "overview": "Grass plan"
+    },
+    {
+        "plan_name": "Iron ore",
+        "plan_image": "https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/19/Iron_Ore_JE6_BE4.png",
+        "cost" : "15,99$",
+        "specs_ram": "4GB RAM",
+        "specs_cpu": "4 vCPU",
+        "mods": "mod-ready server",
+        "access": "root access to server",
+        "backups": "daily backups",
+        "overview": "Iron ore plan"
+      },
+      {
+        "plan_name": "Diamond ore",
+        "plan_image": "https://static.wikia.nocookie.net/minecraft_gamepedia/images/b/b5/Diamond_Ore_JE3_BE3.png",
+        "cost" : "21,99$",
+        "specs_ram": "8GB RAM",
+        "specs_cpu": "8 vCPU",
+        "mods": "mod-ready server",
+        "access": "root access to server",
+        "backups": "daily backups",
+        "overview": "Diamond ore plan"
+      },
+      {
+        "plan_name": "Netherite ore",
+        "plan_image": "https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/4c/Ancient_Debris_JE1_BE1.png",
+        "cost" : "31,99$",
+        "specs_ram": "16GB RAM",
+        "specs_cpu": "16 vCPU",
+        "mods": "mod-ready server",
+        "access": "root access to server",
+        "backups": "daily backups",
+        "overview": "Netherite ore plan"
+      }
+  ]

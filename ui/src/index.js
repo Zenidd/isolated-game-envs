@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {App} from './app.jsx'
+
+// function Content(props) {
+//   console.log(props);
+//   const title = props.title;
+//   return (
+//     <div>
+//       <h1>{title}</h1>
+//       <div>{props.body} {props.children}</div>
+//     </div>
+//   );
+// }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // <Content title="Game server hosting" body="Play with your friends today with an easy to use, instantly set up game server.">Sign up for free</Content>
+  <App />
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
