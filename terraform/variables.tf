@@ -12,6 +12,13 @@ variable "server_tier" {
   default = "cx11"
 }
 
+variable "ssh_private_key" {
+}
+
+variable "game_server_repository" {
+  default = "https://github.com/Zenidd/DockerMinecraft.git"
+}
+
 variable "server_name" {
   default = "minecraft"
 }
