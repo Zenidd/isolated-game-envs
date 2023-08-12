@@ -1,4 +1,4 @@
-import { Component, useState } from 'react'
+import { useState } from 'react'
 import hetznerLogo from '/hetzner.png'
 import dockerLogo from '/docker.png'
 import './App.css'
