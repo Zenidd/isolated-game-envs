@@ -1,0 +1,51 @@
+/* header.css */
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.minecraft-section,
+.valheim-section,
+.panel-section {
+  width: 30%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.minecraft-section {
+  background-color: #009688;
+}
+
+.valheim-section {
+  background-color: #673ab7;
+}
+
+.panel-section {
+  background-color: #f44336;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+
+p > br {
+  display: none;
+}
+
+/* For larger screens, show line breaks between the data points */
+@media screen and (min-width: 768px) {
+  p > br {
+    display: block;
+  }
+}
