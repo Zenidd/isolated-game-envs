@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import hetznerLogo from '/hetzner.png'
-import dockerLogo from '/docker.png'
 import './App.css'
 import "./sections.css"
 import Navbar from './navbar.tsx';
@@ -22,15 +20,6 @@ function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
       </Routes>
-      </div>
-
-      <div>
-        <a href="https://www.docker.com/" target="_blank">
-          <img src={dockerLogo} className="logo" alt="docker logo" />
-        </a>
-        <a href="https://www.hetzner.com/" target="_blank">
-          <img src={hetznerLogo} className="logo hetzner" alt="hetzner logo" />
-        </a>
       </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
