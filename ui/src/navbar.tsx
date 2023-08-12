@@ -8,7 +8,7 @@ return <nav className="nav">
       <Link to="/pricing" >Pricing</Link>
     </li>
     <li className="active"> 
-      <Link to="/about">About</Link>
+      <Link to="/panel">Panel</Link>
     </li>
   </ul>
 </nav>

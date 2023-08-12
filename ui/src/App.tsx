@@ -3,7 +3,7 @@ import './App.css'
 import "./sections.css"
 import Navbar from './navbar.tsx';
 import Pricing from './pages/pricing.tsx';
-import About from './pages/about.tsx';
+import Panel from './panel.tsx';
 import Home from './pages/home.tsx';
 import { Route, Routes} from "react-router-dom"
 
@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/panel" element={<Panel />} />
       </Routes>
       </div>
       <div className="card">
