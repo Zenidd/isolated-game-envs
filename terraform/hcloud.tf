@@ -20,13 +20,14 @@ data "hcloud_ssh_key" "ssh_key" {
 
 #Select snapshot
 data "hcloud_image" "docker_image" {
-  with_selector = "docker-minecraft"
+  with_selector = var.server_snapshot
 }
 
 # Create the server
 resource "hcloud_server" "node1" {
+  location    = var.server_location
   name        = var.server_name
-  image       = data.hcloud_image.docker_image.id
+  image       = "docker-ce"
   server_type = var.server_tier
   ssh_keys    = ["${data.hcloud_ssh_key.ssh_key.id}"]
   public_net {
@@ -36,8 +37,10 @@ resource "hcloud_server" "node1" {
 
   provisioner "remote-exec" {
     inline = [
+      "sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",
+      "chmod +x /usr/local/bin/docker-compose",
       "git clone ${var.game_server_repository} server && cd server",
-      "docker-compose up -d"
+      "JAVA_XMS=${var.java_m} JAVA_XMX=${var.java_m} docker-compose up -d"
     ]
 
     connection {
