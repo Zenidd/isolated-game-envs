@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-igamenvs-dev-154410-authRole",
+      "UnauthRoleArn": "arn:aws:iam::320914960204:role/amplify-igamenvs-dev-154410-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::320914960204:role/amplify-igamenvs-dev-154410-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-igamenvs-dev-154410-deployment",
+      "UnauthRoleName": "amplify-igamenvs-dev-154410-unauthRole",
+      "StackName": "amplify-igamenvs-dev-154410",
+      "StackId": "arn:aws:cloudformation:us-west-1:320914960204:stack/amplify-igamenvs-dev-154410/532f3310-3916-11ee-a431-0251975a8069",
+      "AmplifyAppId": "d1cpindu0ldk4s"
+    },
+    "categories": {
+      "auth": {
+        "igamenvs1184bad7": {}
+      }
+    }
+  }
+}

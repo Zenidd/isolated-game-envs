@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/cli": "^12.2.3",
+    "@aws-amplify/ui-react": "^5.1.0",
     "aws-amplify": "^5.3.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,7 +26,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "typescript": "^5.0.2",
+    "typescript": "^5.1.6",
     "vite": "^4.4.5"
   }
 }
