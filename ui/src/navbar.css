@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  
 }
 
 body {
@@ -7,6 +8,7 @@ body {
 }
 
 .nav {
+  border-radius: 30px;
   background-color: black;
   color: white;
   display: flex;
@@ -15,10 +17,11 @@ body {
   gap: 2rem;
   padding: 0 1rem;
   align-items: stretch;
+  height: 60px;
 }
 
 .site-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .nav ul{
