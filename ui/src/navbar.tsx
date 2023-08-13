@@ -45,7 +45,7 @@ export default function Navbar(props) {
       {props.isAuthenticated !== false ? (
           <div className="username">Hello, {userEmail}</div> 
         ) : null }
-      <ul>
+      <ul className="ulmain">
 
 
 

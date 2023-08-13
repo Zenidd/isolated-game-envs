@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  
 }
 
 body {
@@ -20,7 +19,6 @@ body {
 }
 
 
-
 .nav {
   border-radius: 30px;
   background-color: black;
@@ -34,8 +32,30 @@ body {
   height: 60px;
 }
 
+@media (max-width: 500px) {
+  .nav  {
+    gap: 0.3rem;
+  }
+}
+
 .site-title {
   font-size: 1.5rem;
+}
+
+@media (max-width: 500px) {
+  .site-title  {
+    font-size: 1rem;
+  }
+}
+
+
+.ulmain{
+
+}
+@media (max-width: 500px) {
+  .ulmain  {
+    font-size: 0.75rem;
+  }
 }
 
 .nav ul{
@@ -44,6 +64,14 @@ body {
   list-style: none;
   display: flex;
   gap: 1rem;
+}
+
+
+@media (max-width: 500px) {
+  .nav ul  {
+    gap: 0.5rem;
+    padding: 0 0rem;
+  }
 }
 
 .nav a{
@@ -55,6 +83,9 @@ body {
   padding: .25rem;
 
 }
+
+
+
 
 
 .nav li:active {
