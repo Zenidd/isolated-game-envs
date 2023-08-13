@@ -6,6 +6,7 @@ import './navbar.css'
 
 
 export default function Navbar(props) {
+  // @ts-ignore
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState('');
 
