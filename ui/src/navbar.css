@@ -39,8 +39,9 @@ body {
 }
 
 .site-title {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
 }
+
 
 @media (max-width: 500px) {
   .site-title  {
@@ -85,15 +86,11 @@ body {
 }
 
 
-
-
-
 .nav li:active {
   background-color: #555;
-
 }
-
+/* 
 .nav li:hover {
   background-color: #777;
-}
+} */
 

@@ -40,7 +40,7 @@ export default function Navbar(props) {
 
   return (
     <nav className="nav">
-      <Link to="/" className="site-title">ServerStation</Link>
+      <Link to="/" className="site-title" style={{ color: "#8000FF" }}>ServerStation</Link>
      
       {props.isAuthenticated !== false ? (
           <div className="username">Hello, {userEmail}</div> 
@@ -62,7 +62,7 @@ export default function Navbar(props) {
         </li>
         ) : (
           <li className="active">
-            <Link to="/login">Sign In/Sign Up</Link>
+            <Link to="/login">Sign In/Up</Link>
           </li>
         )}
       </ul>
