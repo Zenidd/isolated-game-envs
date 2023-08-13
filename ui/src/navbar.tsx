@@ -47,7 +47,11 @@ export default function Navbar(props) {
         ) : null }
       <ul className="ulmain">
 
-
+      {props.isAuthenticated !== false ? (
+        <li className="active">
+          <Link to="/panel">Panel</Link>
+        </li>
+        ) : null }
 
       <li className="active">
           <Link to="/pricing">Pricing</Link>
@@ -61,13 +65,6 @@ export default function Navbar(props) {
             <Link to="/login">Sign In/Sign Up</Link>
           </li>
         )}
-
-
-        {props.isAuthenticated !== false ? (
-        <li className="active">
-          <Link to="/panel">Panel</Link>
-        </li>
-        ) : null }
       </ul>
     </nav>
   );
