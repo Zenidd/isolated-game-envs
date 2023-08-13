@@ -3,7 +3,7 @@
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
 
-export function Login({ signOut, user, updateAuthStatus }: WithAuthenticatorProps & { updateAuthStatus: Function }) {
+export function Login({ user, updateAuthStatus }: WithAuthenticatorProps & { updateAuthStatus: Function }) {
   const userEmail = user?.attributes?.email;
 
   // Call the updateAuthStatus function from App component

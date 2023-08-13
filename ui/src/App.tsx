@@ -26,7 +26,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('');
 
-  function updateAuthStatus(authStatus, email = '') {
+  function updateAuthStatus(authStatus: boolean, email = '') {
     setIsAuthenticated(authStatus);
     setUserEmail(email);
   }
