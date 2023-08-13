@@ -1,20 +1,13 @@
 
-import { Amplify } from 'aws-amplify';
-import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
+import './panel.css'
 
 
-export function Panel({ signOut, user }: WithAuthenticatorProps) {
+export default function Panel() {
   return (
     <>
-      <h1>Hello {user?.username}</h1>
-      <button onClick={signOut}>Sign out</button>
+      <h1>Deployment panel</h1>
     </>
   );
 }
 
-export default withAuthenticator(Panel);
+
