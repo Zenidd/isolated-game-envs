@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./deployment.css"; // Import the CSS file
 import Select from 'react-select';
 
@@ -29,9 +29,9 @@ const customStyles = {
   }
 
 export function Deployment(props){
-    const [selectedGame, setSelectedGame] = useState(null);
-    const [selectedLocation, setSelectedLocation] = useState(null);
-    const [selectedTier, setSelectedTier] = useState(null);
+    const [selectedGame, setSelectedGame] = useState<{ value: string, label: string } | null>(null);
+    const [selectedLocation, setSelectedLocation] = useState<{ value: string, label: string } | null>(null);
+    const [selectedTier, setSelectedTier] = useState<{ value: string, label: string } | null>(null);
 
 
     const deploymentAlert = () => {
