@@ -16,13 +16,8 @@
 
 
 .prov-footer{
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  bottom: 0;
-  left: 0;
-
-
+  position:relative; 
+  min-height: 100%;
 }
 
 .read-the-docs {

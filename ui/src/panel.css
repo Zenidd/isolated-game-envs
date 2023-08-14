@@ -1,6 +1,4 @@
 .panel-container
 {
-  width: 720px;
-  position: relative;
-  margin: 0 auto;
+  text-align: left;
 }

@@ -1,0 +1,19 @@
+/* deployment.css */
+
+/* Style for the dropdown options */
+
+.deployment-dropdown{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    
+}
+
+
+.deployment-button{
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    
+}
