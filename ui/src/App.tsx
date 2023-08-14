@@ -31,14 +31,22 @@ function App() {
   }
   return (
     <>
-    
+    <div className="background">
+   <div></div>
+   <div></div>
+   <div></div>
+   <div></div>
+   <div></div>
+   <div></div>
+   <div></div>
+</div>
       <Navbar isAuthenticated={isAuthenticated}
         userEmail={userEmail}
         updateAuthStatus={updateAuthStatus}/>
       <div className="sections-container">
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/nome" element={<Home/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/login" element={<Login updateAuthStatus={updateAuthStatus} />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/panel" element={<Panel />} />

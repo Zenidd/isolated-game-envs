@@ -40,7 +40,7 @@ export default function Navbar(props) {
 
   return (
     <nav className="nav">
-      <Link to="/" className="site-title" style={{ color: "#8000FF" }}>ServerStation</Link>
+      <Link to="/" className="site-title" style={{ color: "#8000FF" }}>HexStation</Link>
      
       {props.isAuthenticated !== false ? (
           <div className="username">Hello, {userEmail}</div> 
