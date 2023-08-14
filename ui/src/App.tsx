@@ -10,7 +10,6 @@ import './App.css'
 import "./sections.css"
 import '@aws-amplify/ui-react/styles.css';
 
-
 import Navbar from './navbar.tsx';
 import Home from './pages/home.tsx';
 import Panel from './panel.tsx';

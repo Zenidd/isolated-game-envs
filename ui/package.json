@@ -14,10 +14,15 @@
     "@aws-amplify/ui-react": "^5.1.0",
     "antd": "^5.8.3",
     "aws-amplify": "^5.3.7",
+    "aws-amplify-react": "^5.1.43",
+    "aws-amplify-react-native": "^7.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.15.0"
+    "react-dropdown-select": "^4.10.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.15.0",
+    "react-select": "^5.7.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

@@ -2,6 +2,8 @@
 
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
 
 export function Login({ user, updateAuthStatus }: WithAuthenticatorProps & { updateAuthStatus: Function }) {
   const userEmail = user?.attributes?.email;
@@ -15,5 +17,6 @@ export function Login({ user, updateAuthStatus }: WithAuthenticatorProps & { upd
     </div>
   );
 }
+
 
 export default withAuthenticator(Login);
