@@ -33,6 +33,7 @@ body {
   filter: drop-shadow(0 0 2em rgb(192, 165, 222));
 }
 
+
 @media (max-width: 500px) {
   .nav  {
     gap: 0.3rem;
@@ -83,6 +84,8 @@ body {
   display: flex;
   align-items: center;
   padding: .25rem;
+  -webkit-tap-highlight-color: transparent;
+
 
 }
 
