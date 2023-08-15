@@ -21,7 +21,7 @@ body {
 
 .nav {
   border-radius: 30px;
-  background-color: black;
+  background-color: rgb(10, 10, 10);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -30,6 +30,7 @@ body {
   padding: 0 1rem;
   align-items: stretch;
   height: 60px;
+  filter: drop-shadow(0 0 2em rgb(192, 165, 222));
 }
 
 @media (max-width: 500px) {
@@ -45,7 +46,7 @@ body {
 
 @media (max-width: 500px) {
   .site-title  {
-    font-size: 1rem;
+    font-size: 1.50rem;
   }
 }
 
@@ -70,7 +71,7 @@ body {
 
 @media (max-width: 500px) {
   .nav ul  {
-    gap: 0.5rem;
+    gap: 0.2rem;
     padding: 0 0rem;
   }
 }
@@ -85,12 +86,13 @@ body {
 
 }
 
+.icon {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  margin-right: 0.5rem; /* Add some spacing between the icon and site title */
+}
 
-/* .nav li:active {
-  background-color: #555;
-} */
-/* 
-.nav li:hover {
-  background-color: #777;
-} */
-
+.site-title-container {
+  display: flex;
+  align-items: center; /* Center vertically */
+}

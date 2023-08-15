@@ -31,15 +31,15 @@ function App() {
   }
   return (
     <>
-    <div className="background">
-   <div></div>
-   <div></div>
-   <div></div>
-   <div></div>
-   <div></div>
-   <div></div>
-   <div></div>
-</div>
+      <div className="background">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      </div>
       <Navbar isAuthenticated={isAuthenticated}
         userEmail={userEmail}
         updateAuthStatus={updateAuthStatus}/>

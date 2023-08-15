@@ -3,6 +3,7 @@ import { Auth } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './navbar.css'
+import hexagonIcon from './assets/hexagon.png'; // Import the icon image
 
 
 export default function Navbar(props) {
@@ -39,9 +40,15 @@ export default function Navbar(props) {
 
 
   return (
+    
     <nav className="nav">
-      <Link to="/" className="site-title" style={{ color: "#8000FF" }}>HexStation</Link>
-     
+      <div className="site-title-container">
+        <img src={hexagonIcon} alt="Hexagon Icon" className="icon" />
+        <Link to="/" className="site-title" style={{ color: "#8000FF" }}>
+          Hexstation
+        </Link>
+      </div>
+
       {props.isAuthenticated !== false ? (
           <div className="username">Hello, {userEmail}</div> 
         ) : null }

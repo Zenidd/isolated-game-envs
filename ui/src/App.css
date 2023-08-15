@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
   text-align: center;
 }
 
@@ -18,7 +18,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: linear-gradient(to right, #a04cc8, #cb7015);
+  /* background: linear-gradient(to right, #a04cc8, #cb7015); */
   display: flex;
   flex-grow: 1;
   z-index: -1;
