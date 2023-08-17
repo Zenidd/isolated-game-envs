@@ -1,58 +1,131 @@
-// routes/deply.js
+//deployments.js
 const express = require('express');
+const crypto = require('crypto');
+
+const dynamo = require('./dynamo.js');
+const ecs    = require('./ecs')
+
 const router = express.Router();
 
-// GET /deploy
-router.post('/deploy', async(req, res) => {
+
+router.get('/getDeployments', function(req, res, next) {
+    queriedDeployment = dynamo.getDeployments();
+    console.log(queriedDeployment);
+    const deployment_headers = req.headers;
+    res.render('index', { title: 'Deployments' });
+});
+
+
+router.get('/getDeploymentsByDeploymentID', function(req, res, next) {
+    queriedDeployment = dynamo.getDeploymentsByDeploymentID('D1');
+    console.log(queriedDeployment);
+    const deployment_headers = req.headers;
+    res.render('index', { title: 'Hexstation API' });
+  });
+
+
+// POST /ecsDeployment
+router.post('/ecsDeployment', async(req, res) => {
     console.log("Received Deployment request");
     const deployment_headers = req.headers;
-    deployment_variables = `-var hcloud_token=${process.env.HCLOUD_TOKEN} `;
-    if (deployment_headers['tier']) {
-        const Tier = deployment_headers['tier'];
-        deployment_variables += '-var server_tier=' + Tier + ' ';
-      }
-    
-    if (deployment_headers['name']) {
-        const Name = deployment_headers['name'];
-        deployment_variables += '-var server_name=' + Name + ' ';
-    }   
 
-    if (deployment_headers['java_m']) {
-        const java_m = deployment_headers['java_m'];
-        deployment_variables += '-var java_m=' + java_m + ' ';
+    // Parameter validation
+    if (!deployment_headers['username'] ||
+        !deployment_headers['servername'] ||
+        !deployment_headers['gamename'] ||
+        deployment_headers['gamename'] !== 'minecraft'
+    )
+    {
+     return res.status(400).send({ success: false, message: 'Missing required parameters.' });
     }
 
-    if (deployment_headers['location']) {
-        const location_s = deployment_headers['location'];
-        deployment_variables += '-var server_location=' + location_s + ' ';
-    }   
-    console.log('Deployment vars:',deployment_variables);
-    var body = res.body;
+    const username = deployment_headers['username'];
+    const servername = deployment_headers['servername'];
+    const gamename = deployment_headers['gamename'];
+
+    let task_definition_arn;
+    if (gamename === 'minecraft') {
+        task_definition_arn = 'arn:aws:ecs:us-west-1:320914960204:task-definition/minecraft-small:6';
+    }
+
+    const randomBytes = crypto.randomBytes(2);
+    const ecsid = randomBytes.toString('hex');
+    const deploymentID = username.split("@")[0] + '-' + ecsid;
+    const currentDate = new Date();
+    const deploymentDate = String(currentDate);
+    console.log(ecsid);
+    console.log(deploymentID);
+    const api_clustername = 'hestation';
+
+    const dp = {
+        "DeploymentID": deploymentID,
+        "taskarn": "",
+        "username": username,
+        "DeploymentDate": deploymentDate,
+        "deleted": "False",
+        "DeletionDate": "",
+        "server_name": servername,
+        "serverip": "",
+        "game_name": gamename
+    };
+
+    // Send a 200 OK response immediately after validation and before deploying
     res.status(200).send({ success: true });
     console.log("Sent response");
 
-    // Deploying through terraform
-    const { spawn } = require("child_process");
-    const terraform = spawn(`terraform -chdir=../terraform apply -lock=false -auto-approve ${deployment_variables}`, [], { shell: true });
-
-    // Logging
-    terraform.stdout.on("data", data => {
-        console.log(`stdout: ${data}`);
-    });
-    terraform.stderr.on("data", data => {
-        console.log(`stderr: ${data}`);
-    });
-    terraform.on('error', (error) => {
-        console.log(`error: ${error.message}`);
-    });
-    terraform.on("close", code => {
-        console.log(`child process exited with code ${code}`);
-    });
+    dynamo.addDeployment(dp);
+    try {
+        const result = await ecs.deployServiceWithTask(deploymentID, api_clustername, task_definition_arn);
+        containerIP = result.ecs_taskIP; // Assign values to non-const variables
+        taskARN = result.ecs_taskARN;
+        if (containerIP && taskARN) {
+            console.log('Container IP:', containerIP);
+            console.log('Task ARN:', taskARN);
+            const dp_update = {
+                "DeploymentID": deploymentID,
+                "taskarn": taskARN,
+                "serverip": containerIP
+            };
+            dynamo.updateDeployment(dp_update);
+        } else {
+            console.log('No valid container IP or task ARN found.');
+        }
+    } catch (error) {
+        console.error('Error in deployServiceWithTask:', error);
+    }
 });
 
-// POST /deploy
-router.post('/', (req, res) => {
 
+// POST /ecsDeleteDeployment
+router.post('/ecsDeleteDeployment', async(req, res) => {
+    const api_clustername = 'hestation';
+
+    console.log("Received Deployment deletion request");
+    const deployment_headers = req.headers;
+    if (!deployment_headers['deploymentid'])
+    {
+     return res.status(400).send({ success: false, message: 'Missing required deploymentid parameter.' });
+    }
+    deploymentid = deployment_headers['deploymentid'];
+    const currentDate = new Date();
+
+    res.status(200).send({ success: true });
+    console.log("Sent response");
+
+
+    const dp_deletion = {
+        "DeploymentID" : deploymentid,
+        "deleted" : "True",
+        "DeletionDate" :  String(currentDate),
+    }
+    try {
+        const result = await ecs.deleteService(api_clustername, deploymentid);
+        dynamo.updateDeployment(dp_deletion);
+    }
+    catch (error) {
+        console.error('Error in deployServiceWithTask:', error);
+    }
+    var body = res.body;
 });
 
 // Export the router
