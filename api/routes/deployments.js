@@ -4,9 +4,11 @@ const crypto = require('crypto');
 
 const dynamo = require('./dynamo.js');
 const ecs    = require('./ecs')
+const authMiddleware = require('./auth-middleware'); // Import your authentication middleware
+
 
 const router = express.Router();
-
+router.use(authMiddleware);
 
 router.get('/getDeployments', function(req, res, next) {
     queriedDeployment = dynamo.getDeployments();
@@ -76,7 +78,7 @@ router.post('/ecsDeployment', async(req, res) => {
     dynamo.addDeployment(dp);
     try {
         const result = await ecs.deployServiceWithTask(deploymentID, api_clustername, task_definition_arn);
-        containerIP = result.ecs_taskIP; // Assign values to non-const variables
+        containerIP = result.ecs_taskIP;
         taskARN = result.ecs_taskARN;
         if (containerIP && taskARN) {
             console.log('Container IP:', containerIP);
@@ -111,7 +113,6 @@ router.post('/ecsDeleteDeployment', async(req, res) => {
 
     res.status(200).send({ success: true });
     console.log("Sent response");
-
 
     const dp_deletion = {
         "DeploymentID" : deploymentid,
