@@ -11,6 +11,9 @@ const ecs = new AWS.ECS();
 const ec2 = new AWS.EC2();
 
 async function deployServiceWithTask(service_name, cluster_name, task_definition) {
+
+
+  
   try {
     const clusterName = cluster_name;
     const serviceName = service_name;

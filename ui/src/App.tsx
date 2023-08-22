@@ -49,7 +49,7 @@ function App() {
           <Route path="/home" element={<Home/>} />
           <Route path="/login" element={<Login updateAuthStatus={updateAuthStatus} />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/panel" element={<Panel />} />
+          <Route path="/panel" element={<Panel user={userEmail} />} />
         </Routes>
       </div>
       <Footer/>
