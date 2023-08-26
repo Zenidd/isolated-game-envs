@@ -1,10 +1,10 @@
 //newdeployment.tsx
 
 import { useState, useContext } from "react";
-import "./newdeployment.css"; // Import the CSS file
+import "./newdeployment.css";
 import Select from 'react-select';
-import axios from 'axios'; // Make sure you have axios installed
-import { UserContext } from '../../userprovider.tsx';  // adjust the path if needed
+import axios from 'axios';
+import { UserContext } from '../../userprovider.tsx';
 
 
 const d_game = [
@@ -31,12 +31,6 @@ const customStyles = {
 };
 
 
-function shortenDateTime(datetimeStr) {
-    const pattern = /(\w{3} \w{3} \d{2} \d{4} \d{2}:\d{2}:\d{2})/;
-    const match = datetimeStr.match(pattern);
-
-    return match ? match[1] : "Pattern not found in the string.";
-  }
 
 export function NewDeployment(props){
     const userContext = useContext(UserContext);
@@ -52,9 +46,6 @@ export function NewDeployment(props){
     const [serverName, setServerName] = useState<string>("");
 
         // New state for storing the deployments
-        const [deployments, setDeployments] = useState([]);
-
-        const getdeploymentsEndpoint = 'http://localhost:4000/getdeployments';
 
         const handleDeployment = async () => {
             if (selectedGame && selectedLocation && selectedTier && serverName) {

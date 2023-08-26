@@ -1,6 +1,5 @@
 //App.tsx
 
-import { useState } from 'react';
 import { Route, Routes } from "react-router-dom";
 
 import { Amplify } from 'aws-amplify';
@@ -16,7 +15,7 @@ import Panel from './panel.tsx';
 import Pricing from './pages/pricing.tsx';
 import Footer from './footer.tsx';
 import Login from './login.tsx';
-import UserProvider, { UserContext } from './userprovider.tsx';
+import UserProvider from './userprovider.tsx';
 
 Amplify.configure(awsExports);
 

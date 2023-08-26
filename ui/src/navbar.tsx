@@ -10,8 +10,13 @@ import hexagonIcon from './assets/hexagon.png';
 export default function Navbar() {
   const navigate = useNavigate();
   
-  // Fetch userEmail and setUserEmail from the UserContext
-  const { userEmail, setUserEmail } = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    console.error("UserContext is not available.");
+    return null; // Or handle the error in another way
+  }
+
+  const { userEmail, setUserEmail } = userContext;
 
   useEffect(() => {
     async function fetchUserEmail() {

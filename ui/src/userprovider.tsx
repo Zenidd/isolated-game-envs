@@ -1,10 +1,13 @@
-import React, { createContext, useState } from 'react'; // Added useState here
+import React, { createContext, useState } from 'react';
 
 type UserContextType = {
   userEmail: string;
   setUserEmail: React.Dispatch<React.SetStateAction<string>>;
 };
 
+type UserProviderProps = {
+  children: React.ReactNode;
+};
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -17,6 +20,5 @@ export default function UserProvider({ children }: UserProviderProps) {
         </UserContext.Provider>
     );
 }
-
 
 export { UserContext };

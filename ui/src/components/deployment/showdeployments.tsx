@@ -6,6 +6,16 @@ import axios from 'axios';
 import { UserContext } from '../../userprovider.tsx';  // adjust the path if needed
 
 
+interface Deployment {
+    DeploymentID: string;
+    game_name: string;
+    username: string;
+    server_name: string;
+    serverip: string;
+    DeploymentDate: string;
+    deleted: boolean;
+}
+
 function shortenDateTime(datetimeStr) {
     const pattern = /(\w{3} \w{3} \d{2} \d{4} \d{2}:\d{2}:\d{2})/;
     const match = datetimeStr.match(pattern);
@@ -13,22 +23,23 @@ function shortenDateTime(datetimeStr) {
     return match ? match[1] : "Pattern not found in the string.";
 }
 
-export function ShowDeployments(props){
+export function ShowDeployments(){
     const userContext = useContext(UserContext);
     if (!userContext) {
         throw new Error("ShowDeployments must be used within a UserProvider");
      }
      
      const { userEmail } = userContext;
-    const [deployments, setDeployments] = useState([]);
-    const [selectedDeploymentId, setSelectedDeploymentId] = useState(null);
+     const [deployments, setDeployments] = useState<Deployment[]>([]);
+     const [selectedDeploymentId, setSelectedDeploymentId] = useState<string | null>(null);
+
 
     const getdeploymentsEndpoint = 'http://localhost:4000/getdeploymentsbyusername';
 
     const fetchDeployments = async () => {
         try {
             const headers = {
-                'username': userEmail // replace 'YOUR_USERNAME_VALUE' with the actual value or variable
+                'username': userEmail
             };
             const response = await axios.get(getdeploymentsEndpoint, { headers: headers });
             console.log(JSON.stringify(response));
@@ -44,14 +55,12 @@ export function ShowDeployments(props){
 const handleDelete = () => {
     if (selectedDeploymentId) {
         alert(`Deleting deployment with ID: ${selectedDeploymentId}`);
-        // Here you can add logic to make a call to your API to delete the deployment
         const deletedeploymentsEndpoint = 'http://localhost:4000/delete';
 
         const requestData = {
             deploymentid: selectedDeploymentId 
         };
 
-        // Create a new async function to handle the deletion
         const deleteDeployment = async () => {
             try {
                 const response = await axios.post(deletedeploymentsEndpoint, requestData);

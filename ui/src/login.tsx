@@ -1,10 +1,10 @@
 // login.tsx
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { UserContext } from './userprovider'; // Updated import path
+import { UserContext } from './userprovider';
 
 export function Login({ user }: WithAuthenticatorProps) {
   const context = useContext(UserContext);
@@ -17,7 +17,9 @@ export function Login({ user }: WithAuthenticatorProps) {
   const { setUserEmail } = context;
   const userEmail = user?.attributes?.email;
 
-  setUserEmail(userEmail);
+  if (userEmail) {
+    setUserEmail(userEmail);
+  }
 
   return (
       <div>
