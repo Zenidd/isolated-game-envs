@@ -2,9 +2,9 @@ const AWS = require('aws-sdk');
 require('dotenv').config({ path: './.env.local' });
 
 AWS.config.update({
-  region: process.env.AWS_DEFAULT_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.ACCOUNT_DEFAULT_REGION,
+  accessKeyId: process.env.ACCOUNT_ACCESS_KEY_ID,
+  secretAccessKey: process.env.ACCOUNT_SECRET_ACCESS_KEY,
 });
 
 const ecs = new AWS.ECS();
