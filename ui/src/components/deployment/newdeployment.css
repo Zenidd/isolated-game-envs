@@ -1,8 +1,8 @@
-/* deployment.css */
+/* newdeployment.css */
 
 /* Style for the dropdown options */
 
-.deployment-dropdown{
+.newdeployment-dropdown{
     display: flex;
     align-items: center;
     justify-items: center;
@@ -10,7 +10,7 @@
 }
 
 
-.deployment-button{
+.newdeployment-button{
     padding-top: 20px;
     display: flex;
     align-items: center;

@@ -10,21 +10,33 @@ const authMiddleware = require('./auth-middleware'); // Import your authenticati
 const router = express.Router();
 router.use(authMiddleware);
 
-router.get('/getDeployments', function(req, res, next) {
-    queriedDeployment = dynamo.getDeployments();
-    console.log(queriedDeployment);
-    const deployment_headers = req.headers;
-    res.render('index', { title: 'Deployments' });
+router.get('/getDeployments', async function(req, res, next) {
+    try {
+        const queriedDeployment = await dynamo.getDeployments();
+        res.json(queriedDeployment);
+    } catch (error) {
+        console.error("Error fetching deployments:", error);
+        res.status(500).send("Error fetching deployments. Please try again.");
+    }
 });
 
 
-router.get('/getDeploymentsByDeploymentID', function(req, res, next) {
-    queriedDeployment = dynamo.getDeploymentsByDeploymentID('D1');
-    console.log(queriedDeployment);
-    const deployment_headers = req.headers;
-    res.render('index', { title: 'Hexstation API' });
-  });
+router.get('/getDeploymentsByUsername', async function(req, res, next) {
+    const username = req.headers.username;
+    // console.log("OUTPUT");
+    // console.log(JSON.stringify(username));
+    if (!username) {
+        return res.status(400).send("Username header is required.");
+    }
 
+    try {
+        const deployments = await dynamo.getDeploymentsByUsername(username);
+        res.json(deployments);
+    } catch (error) {
+        console.error("Error fetching deployments by username:", error);
+        res.status(500).send("Error fetching deployments by username. Please try again.");
+    }
+});
 
 // POST /ecsDeployment
 router.post('/ecsDeployment', async(req, res) => {
