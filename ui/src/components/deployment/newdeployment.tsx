@@ -1,7 +1,11 @@
-import { useState } from "react";
+//newdeployment.tsx
+
+import { useState, useContext } from "react";
 import "./newdeployment.css"; // Import the CSS file
 import Select from 'react-select';
 import axios from 'axios'; // Make sure you have axios installed
+import { UserContext } from '../../userprovider.tsx';  // adjust the path if needed
+
 
 const d_game = [
   { value: 'minecraft', label: 'Minecraft' }
@@ -35,6 +39,13 @@ function shortenDateTime(datetimeStr) {
   }
 
 export function NewDeployment(props){
+    const userContext = useContext(UserContext);
+    if (!userContext) {
+        throw new Error("ShowDeployments must be used within a UserProvider");
+     }
+
+     const { userEmail } = userContext;
+
     const [selectedGame, setSelectedGame] = useState<{ value: string, label: string } | null>(null);
     const [selectedLocation, setSelectedLocation] = useState<{ value: string, label: string } | null>(null);
     const [selectedTier, setSelectedTier] = useState<{ value: string, label: string } | null>(null);
@@ -51,7 +62,7 @@ export function NewDeployment(props){
     
                 const requestData = {
                     gamename: selectedGame.value,
-                    username: props.user,
+                    username: userEmail,
                     servername: serverName,
                 };
     

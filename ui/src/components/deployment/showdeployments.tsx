@@ -1,6 +1,10 @@
-import { useState } from "react";
+//showdeployments.tsx
+
+import { useState, useContext } from "react"; // Add useContext
 import "./showdeployments.css";
 import axios from 'axios';
+import { UserContext } from '../../userprovider.tsx';  // adjust the path if needed
+
 
 function shortenDateTime(datetimeStr) {
     const pattern = /(\w{3} \w{3} \d{2} \d{4} \d{2}:\d{2}:\d{2})/;
@@ -10,19 +14,30 @@ function shortenDateTime(datetimeStr) {
 }
 
 export function ShowDeployments(props){
+    const userContext = useContext(UserContext);
+    if (!userContext) {
+        throw new Error("ShowDeployments must be used within a UserProvider");
+     }
+     
+     const { userEmail } = userContext;
     const [deployments, setDeployments] = useState([]);
-    const [selectedDeploymentId, setSelectedDeploymentId] = useState(null); // New state for the selected deployment ID
+    const [selectedDeploymentId, setSelectedDeploymentId] = useState(null);
 
-    const getdeploymentsEndpoint = 'http://localhost:4000/getdeployments';
+    const getdeploymentsEndpoint = 'http://localhost:4000/getdeploymentsbyusername';
 
     const fetchDeployments = async () => {
         try {
-            const response = await axios.get(getdeploymentsEndpoint);
-            setDeployments(response.data.Items);
+            const headers = {
+                'username': userEmail // replace 'YOUR_USERNAME_VALUE' with the actual value or variable
+            };
+            const response = await axios.get(getdeploymentsEndpoint, { headers: headers });
+            console.log(JSON.stringify(response));
+            setDeployments(response.data || []);
         } catch (error) {
             alert('Error fetching deployments. Please try again.');
         }
     };
+    
 
 
 // Function to handle delete button click
@@ -60,7 +75,8 @@ const handleDelete = () => {
             <div className="showdeployments-button">
                 <button onClick={fetchDeployments}>show deployments</button>
             </div>
-            {deployments.length > 0 && (
+            <p>Logged in as: {userEmail}</p> 
+            {Array.isArray(deployments) && deployments.length > 0 && (
                 <div>
                     <table>
                         <thead>

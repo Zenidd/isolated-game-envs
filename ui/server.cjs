@@ -32,8 +32,6 @@ app.get('/getdeploymentsbyusername', async (req, res) => {
   const apiUrl = `${process.env.API_URL}:${process.env.API_PORT}/deployments/getDeploymentsByUsername`;
 
   const username = req.headers.username;  // Fixed this line
-  console.log("USERNAME")
-  console.log(username);
   const headers = {
     'username': username,
       'Authorization': `Basic ${Buffer.from(`${process.env.API_ADMIN_USER}:${process.env.API_ADMIN_PWD}`).toString('base64')}` // Basic Auth
@@ -41,7 +39,7 @@ app.get('/getdeploymentsbyusername', async (req, res) => {
 
   try {
       const response = await axios.get(apiUrl, { headers: headers });  // Changed this line from axios.post to axios.get
-      console.log(response.data);
+      // console.log(response.data);
       res.json(response.data);
   } catch (error) {
       res.status(500).json({ error: 'Error fetching deployments. Please try again.' });

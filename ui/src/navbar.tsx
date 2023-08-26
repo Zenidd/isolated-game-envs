@@ -1,46 +1,43 @@
-import { Link } from "react-router-dom"
+//navbar.tsx
+
+import { Link, useNavigate } from "react-router-dom";
 import { Auth } from 'aws-amplify';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import './navbar.css'
-import hexagonIcon from './assets/hexagon.png'; // Import the icon image
+import { useEffect, useContext } from 'react';
+import { UserContext } from './userprovider';
+import './navbar.css';
+import hexagonIcon from './assets/hexagon.png';
 
-
-export default function Navbar(props) {
-  // @ts-ignore
+export default function Navbar() {
   const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState('');
+  
+  // Fetch userEmail and setUserEmail from the UserContext
+  const { userEmail, setUserEmail } = useContext(UserContext);
 
   useEffect(() => {
     async function fetchUserEmail() {
-      try {
-        const user = await Auth.currentAuthenticatedUser();
-        setUserEmail(user.attributes.email);
-      } catch (error) {
-        console.log('Error fetching user email:', error);
-      }
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            setUserEmail(user.attributes.email);
+        } catch (error) {
+            console.log('Error fetching user email:', error);
+        }
     }
 
-    if (props.isAuthenticated) {
-      fetchUserEmail();
-    }
-  }, [props.isAuthenticated]);
+    fetchUserEmail();  // Fetch the user email unconditionally
+}, []);
 
   const handleLogout = async () => {
     try {
       console.log('Logout');
       await Auth.signOut();
-  
-      props.updateAuthStatus(false);
+      setUserEmail(''); // Clear the userEmail on logout
       navigate('/');
     } catch (err) {
       console.log(err);
     }
   };
 
-
   return (
-    
     <nav className="nav">
       <div className="site-title-container">
         <img src={hexagonIcon} alt="Hexagon Icon" className="icon" />
@@ -49,30 +46,31 @@ export default function Navbar(props) {
         </Link>
       </div>
 
-      {props.isAuthenticated !== false ? (
-          <div className="username">Hello, {userEmail}</div> 
-        ) : null }
-      <ul className="ulmain">
-
-      {props.isAuthenticated !== false ? (
-        <li className="active">
-          <Link to="/panel">Panel</Link>
-        </li>
-        ) : null }
-
-      <li className="active">
-          <Link to="/pricing">Pricing</Link>
-        </li>
-        {props.isAuthenticated !== false ? (
-        <li className="active">
-            <Link to="/home" onClick={handleLogout}>Logout</Link>
-        </li>
-        ) : (
+      {userEmail ? (
+        <>
+          <div className="username">Hello, {userEmail}</div>
+          <ul className="ulmain">
+            <li className="active">
+              <Link to="/panel">Panel</Link>
+            </li>
+            <li className="active">
+              <Link to="/pricing">Pricing</Link>
+            </li>
+            <li className="active">
+              <Link to="/home" onClick={handleLogout}>Logout</Link>
+            </li>
+          </ul>
+        </>
+      ) : (
+        <ul className="ulmain">
+          <li className="active">
+            <Link to="/pricing">Pricing</Link>
+          </li>
           <li className="active">
             <Link to="/login">Sign In/Up</Link>
           </li>
-        )}
-      </ul>
+        </ul>
+      )}
     </nav>
   );
 }
