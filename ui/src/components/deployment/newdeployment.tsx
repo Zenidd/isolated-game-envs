@@ -49,16 +49,16 @@ export function NewDeployment(props){
 
         const handleDeployment = async () => {
             if (selectedGame && selectedLocation && selectedTier && serverName) {
-                const deployEndpoint = 'http://localhost:4000/deploy';
+                const deployEndpoint = 'https://985axn0vd2.execute-api.us-west-1.amazonaws.com/default/deploy';
     
-                const requestData = {
-                    gamename: selectedGame.value,
-                    username: userEmail,
-                    servername: serverName,
+                const headers = {
+                    'gamename': selectedGame.value,
+                    'username': userEmail,
+                    'servername' : serverName,
                 };
     
                 try {
-                    const response = await axios.post(deployEndpoint, requestData);
+                    const response = await axios.post(deployEndpoint, {}, { headers: headers });
                     console.log(response.data);
                     alert('Deployment successful!');
                 } catch (error) {

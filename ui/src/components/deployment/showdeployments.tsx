@@ -34,7 +34,7 @@ export function ShowDeployments(){
      const [selectedDeploymentId, setSelectedDeploymentId] = useState<string | null>(null);
 
 
-    const getdeploymentsEndpoint = 'http://localhost:4000/getdeploymentsbyusername';
+    const getdeploymentsEndpoint = `${import.meta.env.VITE_API_URL}/getdeploymentsbyusername`;
 
     const fetchDeployments = async () => {
         try {
@@ -55,15 +55,15 @@ export function ShowDeployments(){
 const handleDelete = () => {
     if (selectedDeploymentId) {
         alert(`Deleting deployment with ID: ${selectedDeploymentId}`);
-        const deletedeploymentsEndpoint = 'http://localhost:4000/delete';
+        const deletedeploymentsEndpoint = `${import.meta.env.VITE_API_URL}/delete`;
 
         const requestData = {
-            deploymentid: selectedDeploymentId 
+            'deploymentid' : selectedDeploymentId 
         };
 
         const deleteDeployment = async () => {
             try {
-                const response = await axios.post(deletedeploymentsEndpoint, requestData);
+                const response = await axios.post(deletedeploymentsEndpoint, {}, {headers : requestData});
                 console.log(response.data);
                 alert('Deployment deletion successful!');
             } catch (error) {
