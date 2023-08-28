@@ -1,10 +1,9 @@
 //showdeployments.tsx
 
-import { useState, useContext } from "react"; // Add useContext
+import { useState, useContext } from "react";
 import "./showdeployments.css";
 import axios from 'axios';
-import { UserContext } from '../../userprovider.tsx';  // adjust the path if needed
-
+import { UserContext } from '../../userprovider.tsx';  
 
 interface Deployment {
     DeploymentID: string;
@@ -13,7 +12,7 @@ interface Deployment {
     server_name: string;
     serverip: string;
     DeploymentDate: string;
-    deleted: boolean;
+    deleted: string;
 }
 
 function shortenDateTime(datetimeStr) {
@@ -32,7 +31,10 @@ export function ShowDeployments(){
      const { userEmail } = userContext;
      const [deployments, setDeployments] = useState<Deployment[]>([]);
      const [selectedDeploymentId, setSelectedDeploymentId] = useState<string | null>(null);
-
+     const [hideDeleted, setHideDeleted] = useState(false);
+     const toggleHideDeleted = () => {
+        setHideDeleted(!hideDeleted);
+    };
 
     const getdeploymentsEndpoint = `${import.meta.env.VITE_API_URL}/getdeploymentsbyusername`;
 
@@ -50,8 +52,6 @@ export function ShowDeployments(){
     };
     
 
-
-// Function to handle delete button click
 const handleDelete = () => {
     if (selectedDeploymentId) {
         alert(`Deleting deployment with ID: ${selectedDeploymentId}`);
@@ -69,30 +69,37 @@ const handleDelete = () => {
             } catch (error) {
                 alert('Error in deployment delete. Please try again.');
             }
-            setSelectedDeploymentId(null); // Reset the selected ID after deletion
+            setSelectedDeploymentId(null); 
         };
 
-        deleteDeployment(); // Invoke the async function
+        deleteDeployment(); 
     } else {
         alert("Please select a deployment to delete.");
     }
 };
 
+    const filteredDeployments = hideDeleted ? deployments.filter((deployment) => deployment.deleted !== 'True') : deployments;
 
     return (
         <>
+          <div className="wrapper">
             <div className="showdeployments-button">
-                <button onClick={fetchDeployments}>show deployments</button>
+                <button onClick={fetchDeployments}>Show Deployments</button>
+                <label>
+                    <input 
+                        type="checkbox" 
+                        checked={hideDeleted} 
+                        onChange={toggleHideDeleted} 
+                    />
+                    Hide Deleted Deployments
+                </label>
             </div>
-            <p>Logged in as: {userEmail}</p> 
-            {Array.isArray(deployments) && deployments.length > 0 && (
-                <div>
-                    <table>
+            {Array.isArray(filteredDeployments) && filteredDeployments.length > 0 && (
+                <>
+                  <table>
                         <thead>
                             <tr>
-                                <th>Select</th>
                                 <th>Game</th>
-                                <th>User Name</th>
                                 <th>Server Name</th>
                                 <th>Server IP</th>
                                 <th>Deployment ID</th>
@@ -101,30 +108,36 @@ const handleDelete = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {deployments.map((deployment, index) => (
-                                <tr key={index}>
+                            {filteredDeployments.map((deployment, index) => (
+                                <tr 
+                                    key={index} 
+                                    onClick={() => setSelectedDeploymentId(deployment.DeploymentID)}
+                                    className={selectedDeploymentId === deployment.DeploymentID ? 'selected-row' : ''}
+                                >
                                     <td>
-                                        <input 
-                                            type="radio" 
-                                            name="deploymentSelect"
-                                            value={deployment.DeploymentID}
-                                            onChange={() => setSelectedDeploymentId(deployment.DeploymentID)}
-                                        />
+                                        {deployment.game_name === 'minecraft' ? (
+                                            <img src="../minecraft.png" alt="Minecraft"  width="30" height="30" />
+                                        ) : (
+                                            deployment.game_name
+                                        )}
                                     </td>
-                                    <td>{deployment.game_name}</td>
-                                    <td>{deployment.username}</td>
                                     <td>{deployment.server_name}</td>
                                     <td>{deployment.serverip}</td>
                                     <td>{deployment.DeploymentID}</td>
                                     <td>{shortenDateTime(deployment.DeploymentDate)}</td>
-                                    <td>{deployment.deleted}</td>
+                                    <td>{deployment.deleted.toString()}</td>
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
-                    <button onClick={handleDelete}>Delete Selected Deployment</button>
+                        </table>
+              {selectedDeploymentId && (
+                <div className="delete-button">
+                  <button onClick={handleDelete}>Delete Selected Deployment</button>
                 </div>
-            )}
-        </>
-    );
-}
+              )}
+            </>
+        )}
+      </div>
+    </>
+);
+              }

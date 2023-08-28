@@ -1,19 +1,37 @@
-/* newdeployment.css */
-
-/* Style for the dropdown options */
-
-.newdeployment-dropdown{
+.newdeployment-dropdown {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-items: center;
-    
-}
-
-
-.newdeployment-button{
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .newdeployment-textbox{
+    padding-left:5px;
+    padding-top:;
+  }
+  .newdeployment-button {
     padding-top: 20px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-items: center;
-    
-}
+    width: 100%;
+  }
+  
+  .newdeployment-dropdown input {
+    background-color: lightgrey;  /* Lighter grey to distinguish from page background */
+    color: black;  /* Text color */
+    width: 300px;  /* Width to match the Select components */
+    border: none;  /* Optional, to remove the default border */
+    border-radius: 4px;  /* Optional, for rounded corners */
+    padding: 8px;  /* Padding for text */
+  }
+  
+
+  /* Ensuring that flex-direction stays column regardless of screen size */
+  @media (min-width: 768px) {
+    .newdeployment-dropdown {
+      flex-direction: row;
+    }
+  }
+  
