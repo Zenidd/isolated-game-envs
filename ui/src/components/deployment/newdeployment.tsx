@@ -2,7 +2,7 @@
 
 import { useState, useContext } from "react";
 import "./newdeployment.css";
-import Select, { components }  from 'react-select';
+import Select from 'react-select';
 import Creatable from 'react-select/creatable';
 import axios from 'axios';
 import { UserContext } from '../../userprovider.tsx';
