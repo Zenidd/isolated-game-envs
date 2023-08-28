@@ -45,6 +45,14 @@ const getDeploymentsByUsername = async function(username) {
 
     try {
         const result = await dynamoClient.query(params).promise();
+
+        if (result.Items) {
+            result.Items.sort((a, b) => {
+                const dateA = new Date(a.DeploymentDate);
+                const dateB = new Date(b.DeploymentDate);
+                return dateB - dateA;
+            });
+        }
         console.log(result);
         return result.Items;
     } catch (error) {

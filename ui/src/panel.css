@@ -1,4 +1,25 @@
-.panel-container
-{
+/* panel.css */
+
+.panel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: left;
+  width: 100%;
+  padding: 1rem;
+}
+
+.panel-subcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.horizontal-line {
+  border: 1px solid black; /* Color */
+  width: 100%; /* Or set a specific width */
+  margin: 1rem 0; /* Space around the line */
 }

@@ -2,10 +2,21 @@
 
 import { useState, useContext } from "react";
 import "./newdeployment.css";
-import Select from 'react-select';
+import Select, { components }  from 'react-select';
+import Creatable from 'react-select/creatable';
 import axios from 'axios';
 import { UserContext } from '../../userprovider.tsx';
 
+
+const DropdownIndicator2 = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <svg width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="black">
+          <path d="M4.293 9.293a1 1 0 011.414 0L10 13.586l4.293-4.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414z" />
+        </svg>
+      </components.DropdownIndicator>
+    );
+  };
 
 const d_game = [
   { value: 'minecraft', label: 'Minecraft' }
@@ -23,12 +34,31 @@ const d_tier = [
 ];
 
 const customStyles = {
+    placeholder: (provided) => ({
+        ...provided,
+        color: 'black'  // Change this color as per your requirement
+      }),
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: 'grey',  // Lighter grey to distinguish from page background
+      color: 'black',  // Text color
+      borderRadius: '4px'  // Optional, for rounded corners
+    }),
+    container: (provided) => ({
+      ...provided,
+      color: 'grey',  // Text color
+      width: '300px'  // Set the width as per your requirement
+    }),
     option: (provided, state) => ({
       ...provided,
-      color: state.isSelected ? '#8000FF' : 'white',
-      backgroundColor: state.Selected ? 'black' : "grey",
+      color: state.isSelected ? '#8000FF' : 'black',
+      backgroundColor: state.isSelected ? 'light-grey' : 'dark-grey'
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: 'black', // Make the text color darker when a value is selected
     })
-};
+  };
 
 
 
@@ -40,21 +70,28 @@ export function NewDeployment(props){
 
      const { userEmail } = userContext;
 
-    const [selectedGame, setSelectedGame] = useState<{ value: string, label: string } | null>(null);
-    const [selectedLocation, setSelectedLocation] = useState<{ value: string, label: string } | null>(null);
-    const [selectedTier, setSelectedTier] = useState<{ value: string, label: string } | null>(null);
-    const [serverName, setServerName] = useState<string>("");
-
+     const [selectedGame, setSelectedGame] = useState<{ value: string, label: string } | null>(null);
+     const [selectedLocation, setSelectedLocation] = useState<{ value: string, label: string } | null>(null);
+     const [selectedTier, setSelectedTier] = useState<{ value: string, label: string } | null>(null);
+     const [selectedServerName, setSelectedServerName] = useState<{ value: string, label: string } | null>(null);
+   
+     const DropdownIndicator = props => {
+        return null;
+      };
         // New state for storing the deployments
 
         const handleDeployment = async () => {
-            if (selectedGame && selectedLocation && selectedTier && serverName) {
-                const deployEndpoint = 'https://985axn0vd2.execute-api.us-west-1.amazonaws.com/default/deploy';
-    
+            if (selectedGame && selectedLocation && selectedTier && selectedServerName) {
+
+                const deployEndpoint = `${import.meta.env.VITE_API_URL}/deploy`;
+                console.log(selectedGame.value);
+                console.log(userEmail);
+                console.log(selectedServerName.value);               
+
                 const headers = {
                     'gamename': selectedGame.value,
                     'username': userEmail,
-                    'servername' : serverName,
+                    'servername': selectedServerName.value, 
                 };
     
                 try {
@@ -71,16 +108,22 @@ export function NewDeployment(props){
     
         return (
             <>
-                <div className="newdeployment-dropdown">
-                    <Select styles={customStyles} options={d_game} value={selectedGame} onChange={setSelectedGame} />
-                    <Select styles={customStyles} options={d_location} value={selectedLocation} onChange={setSelectedLocation} />
-                    <Select styles={customStyles} options={d_tier} value={selectedTier} onChange={setSelectedTier}/>
-                    <input type="text" placeholder="Server Name" value={serverName} onChange={e => setServerName(e.target.value)} />
-                </div>
-                <div className="newdeployment-button">
-                    <button onClick={handleDeployment}>Order now {props.pricing}</button>
-                </div>
-
+              <div className="newdeployment-dropdown">
+                <Select components={{ DropdownIndicator2 }} styles={customStyles} options={d_game} value={selectedGame} onChange={setSelectedGame} placeholder="Game" />
+                <Select styles={customStyles} options={d_location} value={selectedLocation} onChange={setSelectedLocation} placeholder="Region"  />
+                <Select styles={customStyles} options={d_tier} value={selectedTier} onChange={setSelectedTier} placeholder="Server size" />
+                <Creatable
+                components={{ DropdownIndicator }}
+                styles={customStyles}
+                  value={selectedServerName}
+                  onChange={setSelectedServerName}
+                  placeholder="Server Name"
+                  isClearable
+                />
+              </div>
+              <div className="newdeployment-button">
+                <button onClick={handleDeployment}>Order now {props.pricing}</button>
+              </div>
             </>
-        );
-    }
+          );
+        }
