@@ -8,16 +8,6 @@ import axios from 'axios';
 import { UserContext } from '../../userprovider.tsx';
 
 
-const DropdownIndicator2 = (props) => {
-    return (
-      <components.DropdownIndicator {...props}>
-        <svg width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="black">
-          <path d="M4.293 9.293a1 1 0 011.414 0L10 13.586l4.293-4.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414z" />
-        </svg>
-      </components.DropdownIndicator>
-    );
-  };
-
 const d_game = [
   { value: 'minecraft', label: 'Minecraft' }
 ];
@@ -75,9 +65,8 @@ export function NewDeployment(props){
      const [selectedTier, setSelectedTier] = useState<{ value: string, label: string } | null>(null);
      const [selectedServerName, setSelectedServerName] = useState<{ value: string, label: string } | null>(null);
    
-     const DropdownIndicator = props => {
-        return null;
-      };
+     const DropdownIndicator = () => null;
+
         // New state for storing the deployments
 
         const handleDeployment = async () => {
@@ -109,7 +98,7 @@ export function NewDeployment(props){
         return (
             <>
               <div className="newdeployment-dropdown">
-                <Select components={{ DropdownIndicator2 }} styles={customStyles} options={d_game} value={selectedGame} onChange={setSelectedGame} placeholder="Game" />
+                <Select styles={customStyles} options={d_game} value={selectedGame} onChange={setSelectedGame} placeholder="Game" />
                 <Select styles={customStyles} options={d_location} value={selectedLocation} onChange={setSelectedLocation} placeholder="Region"  />
                 <Select styles={customStyles} options={d_tier} value={selectedTier} onChange={setSelectedTier} placeholder="Server size" />
                 <Creatable
