@@ -2,13 +2,16 @@
 const express = require('express');
 const crypto = require('crypto');
 
-const dynamo = require('./dynamo.js');
-const ecs    = require('./ecs')
-const authMiddleware = require('./auth-middleware'); // Import your authentication middleware
+const dynamo = require('../components/dynamo');
+const ecs    = require('../components/ecs')
 
 
 const router = express.Router();
-router.use(authMiddleware);
+
+
+router.get('/', function(req, res, next) {  
+    res.render('index', { title: 'Hexstation API' });
+  });
 
 router.get('/getDeployments', async function(req, res, next) {
     try {
