@@ -9,7 +9,8 @@ import { UserContext } from '../../userprovider.tsx';
 
 
 const d_game = [
-  { value: 'minecraft', label: 'Minecraft' }
+  { value: 'minecraft', label: '⛏ Minecraft' },
+  { value: 'minecraft', label: '🧟 Project zomboid' }
 ];
 
 const d_location = [
@@ -18,9 +19,9 @@ const d_location = [
 ];
 
 const d_tier = [
-  { value: 'cpx21', label: '3vCPUs - 4GB RAM - 10 slots' },
-  { value: 'cpx31', label: '4vCPUs - 8GB RAM - 20 slots' },
-  { value: 'cpx41', label: '8vCPUs - 16GB RAM - 50 slots' }
+  { value: 'Basic', label: 'Basic' },
+  { value: 'Standard', label: 'Standard' },
+  { value: 'Premium', label: 'Premium' }
 ];
 
 const customStyles = {
