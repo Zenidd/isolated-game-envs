@@ -1,10 +1,10 @@
+import './pricing.css'
 
 export default function Pricing() {
     return (
         <>
-        <h1> Pricing</h1>
-        <div>
-        Check the pricing
+        <div className='pricing-header'>
+        <h1>Hosting plans</h1>
         </div>
         </>
       )

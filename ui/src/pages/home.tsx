@@ -1,10 +1,16 @@
+import "./home.css"
 
 export default function Home() {
     return (
         <>
-        <h1> Isolated game envs</h1>
-        <div>
-        Cheap Minecraft and Vallheim Hosting that doesn’t skimp on quality, you just pay less for it
+        <div className="combine">
+          <div className='header'>
+            <h1> Games server <br></br>
+            hosting</h1>
+            <h2>Minecraft hosting</h2>
+            <h2>Vallheim hosting</h2>
+          </div>
+
         </div>
         </>
       )
